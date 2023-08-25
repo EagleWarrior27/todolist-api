@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +22,12 @@ public class TareaController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Tarea tarea) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(tarea.getFechaVencimiento());
+        calendar.add(Calendar.DATE, 1);
+        Date date = calendar.getTime();
+
+        tarea.setFechaVencimiento(date);
         return ResponseEntity.status(HttpStatus.CREATED).body(tareaService.save(tarea));
     }
 
