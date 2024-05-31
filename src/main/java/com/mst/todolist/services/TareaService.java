@@ -1,19 +1,16 @@
 package com.mst.todolist.services;
 
 import com.mst.todolist.entity.Tarea;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TareaService {
-    public Iterable<Tarea> findAll();
+    List<Tarea> findAll();
 
-    public Page<Tarea> findAll(Pageable pageable);
+    Optional<Tarea> findById(Long id);
 
-    public Optional<Tarea> findById(Long id);
+    Tarea save(Tarea tarea);
 
-    public Tarea save(Tarea tarea);
-
-    public void deleteById(Long id);
+    void deleteById(Long id);
 }

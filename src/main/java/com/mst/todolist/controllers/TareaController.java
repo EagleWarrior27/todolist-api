@@ -7,12 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/tareas")
@@ -20,14 +16,13 @@ public class TareaController {
     @Autowired
     private TareaService tareaService;
 
+    @GetMapping
+    public ResponseEntity<List<Tarea>> readAll() {
+        return ResponseEntity.ok(tareaService.findAll());
+    }
+
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Tarea tarea) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(tarea.getFechaVencimiento());
-        calendar.add(Calendar.DATE, 1);
-        Date date = calendar.getTime();
-
-        tarea.setFechaVencimiento(date);
         return ResponseEntity.status(HttpStatus.CREATED).body(tareaService.save(tarea));
     }
 
@@ -64,14 +59,5 @@ public class TareaController {
 
         tareaService.deleteById(id);
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping
-    public List<Tarea> readAll() {
-        List<Tarea> usuarios = StreamSupport
-                .stream(tareaService.findAll().spliterator(), false)
-                .collect(Collectors.toList());
-
-        return usuarios;
     }
 }

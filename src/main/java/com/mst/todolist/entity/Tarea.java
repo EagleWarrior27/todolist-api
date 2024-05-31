@@ -1,11 +1,11 @@
 package com.mst.todolist.entity;
 
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Date;
 
+@Data
 @Entity
 @Table(name = "tareas")
 public class Tarea {
@@ -20,29 +20,5 @@ public class Tarea {
     private String estado;
 
     @Column(name = "fecha_vencimiento")
-    private Date fechaVencimiento;
-
-    public Long getTareaId() { return tareaId; }
-
-    public void setTareaId(Long tareaId) { this.tareaId = tareaId; }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Date getFechaVencimiento() { return fechaVencimiento; }
-
-    public void setFechaVencimiento(Date fechaVencimiento) { this.fechaVencimiento = fechaVencimiento; }
+    private String fechaVencimiento;
 }
